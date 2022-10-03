@@ -1,5 +1,5 @@
 .velog {
-  width:144rem;
+  width:140rem;
   display:flex;
   flex-direction: column;
   margin:0 auto;
@@ -140,6 +140,10 @@
   border-radius: 0.5rem;
   background-color: #1e1e1e;
   overflow: hidden;
+  transition: transform .4s ease-in-out;
+}
+.post:hover{
+  transform: translateY(-1rem);
 }
 .post__image {
   width: 32rem;
@@ -188,14 +192,15 @@
 }
 .post__info > .post__sub {
   display: flex;
+  align-items: center;
 }
 .post__info > .post__sub > span {
   font-size: 1.2rem;
   color: #acacac;
+  line-height: 1.8rem;
 }
-.post__info > .post__sub > .sub__date::after {
-  content: ".";
-  vertical-align: middle;
+.post__info > .post__sub > .sub__comments::before {
+  content: "\2022";
   margin: 0 0.4rem;
 }
 .post__etc {
@@ -271,6 +276,9 @@
     width: 45%;
     max-height: 46.4rem;
     height:auto;
+  }
+  .post:hover{
+    transform: none;
   }
   .post__image {
     width:100%;
