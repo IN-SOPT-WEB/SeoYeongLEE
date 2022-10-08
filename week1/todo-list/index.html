@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="reset.css" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css"
+    />
+    <title>TODO List</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>TODO List</h1>
+    </header>
+    <nav class="navigation">
+      <button>Today</button>
+      <button>Tomorrow</button>
+      <button>All</button>
+    </nav>
+    <main class="main">
+      <section class="section__left">
+        <div>
+          <h1>Today's TODO</h1>
+          <ul class="todo__list">
+            <li class="todo">Github Action 공부하기</li>
+          </ul>
+        </div>
+        <form class="todo__form">
+          <input type="text" class="input" />
+          <button>+</button>
+        </form>
+      </section>
+      <section class="section__right">
+        <div>
+          <h1>Tomorrow's TODO</h1>
+          <ul class="todo__list">
+            <li class="todo">JS 코테 문제 풀기</li>
+            <li class="todo">책 반납하기</li>
+          </ul>
+        </div>
+        <form class="todo__form">
+          <input type="text" class="input" />
+          <button>+</button>
+        </form>
+      </section>
+    </main>
+    <footer class="footer">Copyright &copy leeseooo</footer>
+  </body>
+</html>
