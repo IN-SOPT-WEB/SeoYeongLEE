@@ -19,37 +19,38 @@
       <h1>TODO List</h1>
     </header>
     <nav class="navigation">
-      <button>Today</button>
-      <button>Tomorrow</button>
-      <button>All</button>
+      <button type="button" class="nav__buttons">Today</button>
+      <button type="button" class="nav__buttons">Tomorrow</button>
+      <button type="button" class="nav__buttons">All</button>
     </nav>
     <main class="main">
       <section class="section__left">
         <div>
           <h1>Today's TODO</h1>
-          <ul class="todo__list">
+          <ul class="todo__list todo__list--left">
             <li class="todo">Github Action 공부하기</li>
           </ul>
         </div>
-        <form class="todo__form">
+        <form class="todo__form todo__form--left">
           <input type="text" class="input" />
-          <button>+</button>
+          <button type="submit">+</button>
         </form>
       </section>
       <section class="section__right">
         <div>
           <h1>Tomorrow's TODO</h1>
-          <ul class="todo__list">
+          <ul class="todo__list todo__list--right">
             <li class="todo">JS 코테 문제 풀기</li>
             <li class="todo">책 반납하기</li>
           </ul>
         </div>
-        <form class="todo__form">
+        <form class="todo__form todo__form--right">
           <input type="text" class="input" />
-          <button>+</button>
+          <button type="submit" s>+</button>
         </form>
       </section>
     </main>
     <footer class="footer">Copyright &copy leeseooo</footer>
   </body>
+  <script src="./index.js"></script>
 </html>
