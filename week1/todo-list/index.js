@@ -2,7 +2,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 const forms = $$('.todo__form');
 const todoLists = $$('.todo__list');
-const navigations = $$('.nav__buttons');
+const navigationButtons = $$('.nav__buttons');
 
 const submitForm = (e) => {
     e.preventDefault();
@@ -28,42 +28,53 @@ const deleteTodoList = (e) => {
     target.remove();
 }
 
-const toggleNavigation = (e) => {
+const toggleNavigationButtons = (e) => {
     const type = e.target.innerText;
     const leftSection = $('.section__left');
     const rightSection = $('.section__right');
     
     switch(type){
         case 'Today':
-            leftSection.style.width = '100%';
-            rightSection.style.width = '0';
-
-            leftSection.style.padding = '1rem';
-            rightSection.style.padding = '0';
-
-            rightSection.style.overflow = 'hidden';
+            openSection(leftSection);
+            closeSection(rightSection);
             break;
         case 'Tomorrow':
-            leftSection.style.width = '0';
-            rightSection.style.width = '100%';
-
-            leftSection.style.padding = '0';
-            rightSection.style.padding = '1rem';
-
-            leftSection.style.border = 'none';
-            leftSection.style.overflow = 'hidden';
+            openSection(rightSection);
+            closeSection(leftSection);
             break;
         default:
-            leftSection.style.width = '50%';
-            rightSection.style.width = '50%';
-
-            leftSection.style.padding = '1rem';
-            rightSection.style.padding = '1rem';
-
-            leftSection.style.borderRight = '1px solid #000';
+            restoreSection(leftSection);
+            restoreSection(rightSection);
     }
 }
+
+const openSection = (section) => {
+    const style = section.style;
+
+    style.width = '100%';
+    style.padding = '1rem';
+    style.opacity = '1';
+    style.border = 'none';
+}
+
+const closeSection = (section) => {
+    const style = section.style;
+
+    style.width = '0';
+    style.padding = '0';
+    style.opacity = '0';
+    style.border = 'none';
+}
+
+const restoreSection = (section) => {
+    const style = section.style;
+
+    style.width = '50%';
+    style.padding = '1rem';
+    style.opacity = '1';
+    section.classList[0].includes('left')  ? style.borderRight = '1px solid #000' : 'none';
+}
     
-Array.from(forms).map((form)=>form.addEventListener('submit',submitForm))
-Array.from(todoLists).map((todoList)=>todoList.addEventListener('click',deleteTodoList))
-Array.from(navigations).map((navigation)=>navigation.addEventListener('click',toggleNavigation))
+[...forms].map((form)=>form.addEventListener('submit',submitForm));
+[...todoLists].map((todoList)=>todoList.addEventListener('click',deleteTodoList));
+[...navigationButtons].map((navigationButton)=>navigationButton.addEventListener('click',toggleNavigationButtons));
