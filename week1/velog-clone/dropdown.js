@@ -16,5 +16,11 @@ function changeDropDownText(e){
     dropDownText.innerText = e.target.innerText;
 }
 
+function init(){
+    dropBox.style.display = 'none';
+}
+
 dropDown.addEventListener('click',toggleDropBox);
 dropBox.addEventListener('click',changeDropDownText);
+
+init();
