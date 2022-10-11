@@ -101,8 +101,11 @@
 .nav__new > svg {
   margin-right: 0.8rem;
 }
-.nav__week {
-  width: 8rem;
+.nav__week{
+  position: relative;
+}
+.nav__week > .dropDown{
+  width: 6.8rem;
   height: 3.2rem;
   display: flex;
   justify-content: space-between;
@@ -110,15 +113,42 @@
   padding: 0 0.8rem;
   background-color: #1e1e1e;
 }
-.nav__week > p {
-  font-size: 1.4rem;
+.nav__week > .dropDown:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+.nav__week > .dropDown > p {
+  font-size: 1.2rem;
   font-weight: bold;
   color: #d9d9d9;
 }
-.nav__week > .toggle__button {
+.nav__week > .dropDown > .toggle__button {
   width: 2.4rem;
   height: 2.4rem;
   padding: 0;
+}
+.dropBox{
+  position: absolute;
+  top:5rem;
+  right:-2rem;
+  width:19.2rem;
+  display:flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  cursor: pointer;
+}
+.dropBox > p{
+  height:1.84rem;
+  padding:1.2rem 1.6rem;
+  color:#fff;
+  font-size:1.4rem;
+  font-weight: bold;
+}
+.dropBox > p:not(:last-child){
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dropBox .dropBox--selected{
+  color:#96F2D7;
 }
 
 /* articles */
