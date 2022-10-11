@@ -302,6 +302,7 @@
   background-color: #1e1e1e;
   font-size: 1.2rem;
   border-radius: 1rem;
+  cursor: pointer;
 }
 .tag__form{
   height:2.4rem;
