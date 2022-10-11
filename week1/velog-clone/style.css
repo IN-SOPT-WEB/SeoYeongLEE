@@ -1,17 +1,17 @@
 .velog {
-  width:140rem;
-  display:flex;
+  width: 140rem;
+  display: flex;
   flex-direction: column;
-  margin:0 auto;
+  margin: 0 auto;
 }
 /* header */
 .header {
-  width:100%;
+  width: 100%;
   height: 6.4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin:0 auto;
+  margin: 0 auto;
 }
 .velog__logo {
   width: 7.1rem;
@@ -41,13 +41,17 @@
   height: 4rem;
   margin-right: 0.8rem;
 }
-.darkmode__button:hover, .search__button:hover{
+.darkmode__button:hover,
+.search__button:hover {
   border-radius: 50%;
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .post__button {
-  width: 10.9rem;
+  width: 7.525rem;
   height: 2.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #fff;
   border-radius: 2rem;
   margin-right: 2rem;
@@ -55,6 +59,11 @@
   color: #fff;
   font-size: 1.6rem;
   font-weight: bold;
+}
+.post__button:hover {
+  transition: 0.4s ease;
+  background-color: #fff;
+  color: #000;
 }
 .profile__tab {
   display: flex;
@@ -101,10 +110,10 @@
 .nav__new > svg {
   margin-right: 0.8rem;
 }
-.nav__week{
+.nav__week {
   position: relative;
 }
-.nav__week > .dropDown{
+.nav__week > .dropDown {
   width: 6.8rem;
   height: 3.2rem;
   display: flex;
@@ -113,7 +122,7 @@
   padding: 0 0.8rem;
   background-color: #1e1e1e;
 }
-.nav__week > .dropDown:hover{
+.nav__week > .dropDown:hover {
   opacity: 0.7;
   cursor: pointer;
 }
@@ -127,33 +136,33 @@
   height: 2.4rem;
   padding: 0;
 }
-.dropBox{
+.dropBox {
   position: absolute;
-  top:5rem;
-  right:-2rem;
-  width:19.2rem;
-  display:flex;
+  top: 5rem;
+  right: -2rem;
+  width: 19.2rem;
+  display: flex;
   flex-direction: column;
   background-color: #1e1e1e;
   cursor: pointer;
 }
-.dropBox > p{
-  height:1.84rem;
-  padding:1.2rem 1.6rem;
-  color:#fff;
-  font-size:1.4rem;
+.dropBox > p {
+  height: 1.84rem;
+  padding: 1.2rem 1.6rem;
+  color: #fff;
+  font-size: 1.4rem;
   font-weight: bold;
 }
-.dropBox > p:not(:last-child){
+.dropBox > p:not(:last-child) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.dropBox .dropBox--selected{
-  color:#96F2D7;
+.dropBox .dropBox--selected {
+  color: #96f2d7;
 }
 
 /* articles */
 .posts {
-  width:100%;
+  width: 100%;
   margin-top: 3rem;
 }
 .posts > div {
@@ -163,16 +172,16 @@
 }
 .post {
   width: 32rem;
-  height:auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   margin: 1.6rem;
   border-radius: 0.5rem;
   background-color: #1e1e1e;
   overflow: hidden;
-  transition: transform .4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
 }
-.post:hover{
+.post:hover {
   transform: translateY(-1rem);
 }
 .post__image {
@@ -273,21 +282,59 @@
   height: 1.2rem;
   margin-right: 0.8rem;
 }
-@media (max-width:1440px){
-  .velog{
-    width:102.4rem;
+/* hash tag post page */
+.tag__main {
+  display: flex;
+  padding: 2rem 1rem;
+}
+.tag__main > .tag__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tag__list > .tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:2.4rem;
+  padding: 0 1.2rem;
+  margin: 0 0.8rem 0.8rem 0;
+  color: #96f2d7;
+  background-color: #1e1e1e;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+}
+.tag__form{
+  height:2.4rem;
+  display:flex;
+  align-items: center;
+}
+.tag__form > input {
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+}
+.tag__form > input:focus {
+  outline: none;
+}
+.tag__form > input::placeholder {
+  color: #acacac;
+  font-size: 1.2rem;
+}
+@media (max-width: 1440px) {
+  .velog {
+    width: 102.4rem;
   }
-  .post{
-    height:37rem;
+  .post {
+    height: 37rem;
   }
-  .post__image{
-    height:50%;
+  .post__image {
+    height: 50%;
     overflow: hidden;
   }
 }
 @media (max-width: 1058px) {
   .velog {
-    width:calc(100% - 4rem);
+    width: calc(100% - 4rem);
   }
   .velog__logo {
     width: 5.8rem;
@@ -305,13 +352,13 @@
   .post {
     width: 45%;
     max-height: 46.4rem;
-    height:auto;
+    height: auto;
   }
-  .post:hover{
+  .post:hover {
     transform: none;
   }
   .post__image {
-    width:100%;
+    width: 100%;
   }
 }
 @media (max-width: 765px) {
