@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { quiz } from "./constant/quiz";
 
@@ -10,30 +10,49 @@ function MainPage() {
   const [showModal, setShowModal] = useState(false);
   const { src, choices, answer } = quiz[currentQuiz];
 
-  useEffect(() => {
-    randomIndex();
-  }, [currentQuiz]);
-
   const randomIndex = () => {
     let randomNumber = Math.floor(Math.random() * 5);
     if (!quizIndexArray.current.includes(randomNumber)) {
       setCurrentQuiz(randomNumber);
       quizIndexArray.current.push(randomNumber);
+    } else {
+      randomIndex();
     }
-    console.log(currentQuiz);
   };
 
-  const checkAnswer = (e) => {
-    const userChoice = e.target.innerText;
+  const checkAnswer = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const userChoice = quiz[currentQuiz].choices[index];
+
     if (userChoice === answer) {
       // 정답
       setScore((prev) => prev + 1);
       setModalContent("정답입니다!");
     } else {
-      setModalContent("틀렸습니다.");
+      setModalContent("틀렸습니다;");
     }
-    setShowModal((prev) => !prev);
-    setTimeout(() => setShowModal((prev) => !prev), 2000);
+    showNextQuiz();
+  };
+
+  const showNextQuiz = () => {
+    if (quizIndexArray.current.length === quiz.length) {
+      finishGame();
+    } else {
+      setShowModal((prev) => !prev);
+      setTimeout(() => setShowModal((prev) => !prev), 500);
+      randomIndex();
+    }
+  };
+
+  const finishGame = () => {
+    setShowModal(true);
+    setModalContent("총 " + score + "개 맞추셨어요!");
+  };
+
+  const restartGame = () => {
+    quizIndexArray.current = [];
+    setShowModal(false);
+    randomIndex();
+    setScore(0);
   };
 
   return (
@@ -43,7 +62,7 @@ function MainPage() {
           <span>{modalContent}</span>
         </StyledModal>
       )}
-      <StyledHeader>
+      <StyledHeader isCorrect={modalContent === "정답입니다!"}>
         <h1>구끼퀴즈</h1>
         <div>
           <div>score : {score}점</div>
@@ -53,8 +72,8 @@ function MainPage() {
       <StyledMain>
         <img src={src} alt="quiz" />
         <StyledChoices>
-          {choices.map((choice) => (
-            <StyledChoice key={choice} onClick={checkAnswer}>
+          {choices.map((choice, index) => (
+            <StyledChoice key={choice} onClick={(e) => checkAnswer(e, index)}>
               {choice}
             </StyledChoice>
           ))}
@@ -62,7 +81,9 @@ function MainPage() {
       </StyledMain>
 
       <StyledFooter>
-        <StyledRestartButton>다시하기</StyledRestartButton>
+        <StyledRestartButton onClick={restartGame}>
+          다시하기
+        </StyledRestartButton>
       </StyledFooter>
     </StyledRoot>
   );
@@ -96,7 +117,7 @@ const StyledModal = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ isCorrect: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,6 +135,18 @@ const StyledHeader = styled.header`
     justify-content: center;
     align-items: center;
     font-size: 16px;
+    animation: ${({ isCorrect }) => isCorrect && "scale 1s ease"};
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(2);
+    }
+    100%{
+        transform: scale(1);
+    }
   }
 `;
 
