@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import Modal from "../components/Modal";
 import { quiz } from "../constant/quiz";
+import { checkRandomIndex } from "../constant/validations";
 
 function MainPage() {
   const quizIndexArray = useRef<number[]>([]);
@@ -13,11 +14,11 @@ function MainPage() {
 
   const randomIndex = () => {
     let randomNumber = Math.floor(Math.random() * 5);
-    if (!quizIndexArray.current.includes(randomNumber)) {
-      setCurrentQuiz(randomNumber);
-      quizIndexArray.current.push(randomNumber);
-    } else {
+    // 이미 나왔던 random 인덱스라면 다시 random 인덱스 구하기
+    if (checkRandomIndex(quizIndexArray.current, randomNumber)) {
       randomIndex();
+    } else {
+      setCurrentQuiz(randomNumber);
     }
   };
 
