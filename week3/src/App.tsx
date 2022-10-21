@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import MainPage from "./MainPage";
+import MainPage from "./view/MainPage";
 
 const GlobalStyles = createGlobalStyle`
     ${reset}

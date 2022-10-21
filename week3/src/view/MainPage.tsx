@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { quiz } from "./constant/quiz";
+import Modal from "../components/Modal";
+import { quiz } from "../constant/quiz";
 
 function MainPage() {
   const quizIndexArray = useRef<number[]>([]);
@@ -57,11 +58,7 @@ function MainPage() {
 
   return (
     <StyledRoot>
-      {showModal && (
-        <StyledModal>
-          <span>{modalContent}</span>
-        </StyledModal>
-      )}
+      {showModal && <Modal modalContent={modalContent} />}
       <StyledHeader isCorrect={modalContent === "정답입니다!"}>
         <h1>구끼퀴즈</h1>
         <div>
@@ -101,22 +98,6 @@ const StyledRoot = styled.div`
   color: #fff;
 `;
 
-const StyledModal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 100px;
-  color: #232323;
-  background-color: #fff;
-  box-shadow: -1px -1px 10px #c1c1c1;
-  border-radius: 15px;
-  transform: translate(-50%, -50%);
-`;
-
 const StyledHeader = styled.header<{ isCorrect: boolean }>`
   display: flex;
   flex-direction: column;
@@ -144,8 +125,8 @@ const StyledHeader = styled.header<{ isCorrect: boolean }>`
     50% {
       transform: scale(2);
     }
-    100%{
-        transform: scale(1);
+    100% {
+      transform: scale(1);
     }
   }
 `;
