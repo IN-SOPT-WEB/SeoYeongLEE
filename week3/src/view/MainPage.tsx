@@ -22,7 +22,7 @@ function MainPage() {
     }
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+  const checkAnswer = (index: number) => {
     const userChoice = quiz[currentQuiz].choices[index];
 
     if (userChoice === answer) {
@@ -40,8 +40,8 @@ function MainPage() {
       finishGame();
     } else {
       setShowModal((prev) => !prev);
-      setTimeout(() => setShowModal((prev) => !prev), 500);
       randomIndex();
+      setTimeout(() => setShowModal((prev) => !prev), 500);
     }
   };
 
@@ -71,7 +71,7 @@ function MainPage() {
         <img src={src} alt="quiz" />
         <StyledChoices>
           {choices.map((choice, index) => (
-            <StyledChoice key={choice} onClick={(e) => checkAnswer(e, index)}>
+            <StyledChoice key={choice} onClick={() => checkAnswer(index)}>
               {choice}
             </StyledChoice>
           ))}
