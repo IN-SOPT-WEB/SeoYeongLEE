@@ -9,9 +9,13 @@ function MainPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [status, setStatus] = useState(false);
 
   const checkAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
-    let timer = setTimeout(() => setShowModal(false), 500);
+    let timer = setTimeout(() => {
+      setShowModal(false);
+      setStatus(false);
+    }, 500);
 
     if (e.currentTarget.innerText === quizList[currentIndex].answer) {
       setScore((prev) => prev + 1);
@@ -20,9 +24,11 @@ function MainPage() {
       } else {
         showNextQuiz();
         setModalContent("맞췄어요!!");
+        setStatus(true);
       }
     } else {
       setModalContent("아니에요..😣");
+      setStatus(false);
     }
     setShowModal(true);
   };
@@ -45,7 +51,7 @@ function MainPage() {
 
   return (
     <StyledRoot>
-      <StyledHeader>
+      <StyledHeader isCorrect={status}>
         <h1>너누구야</h1>
         <p>score: {score}</p>
       </StyledHeader>
@@ -78,7 +84,7 @@ const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ isCorrect: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,9 +95,22 @@ const StyledHeader = styled.header`
     font-size: 24px;
     font-weight: 700;
   }
+
   & > p {
+    animation: ${({ isCorrect }) => isCorrect && "0.7s ease scale"};
     font-size: 20px;
     font-weight: 500;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 `;
 const StyledMain = styled.main`
