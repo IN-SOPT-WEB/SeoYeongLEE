@@ -1,10 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Modal from "../components/Modal";
+import ModalPortal from "../components/ModalPortal";
 import { quizList } from "../constants/quizList";
 
 function MainPage() {
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  useEffect(() => {
+    console.log(showModal);
+  }, [showModal]);
+
+  const checkAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
+    if (e.currentTarget.innerText === quizList[currentIndex].answer) {
+      showNextQuiz();
+      setModalContent("맞췄어요!!");
+      setScore((prev) => prev + 1);
+    } else {
+      setModalContent("아니에요..😣");
+    }
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 1000);
+  };
+
+  const showNextQuiz = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
 
   return (
     <StyledRoot>
@@ -13,12 +37,16 @@ function MainPage() {
         <p>score: {score}</p>
       </StyledHeader>
 
+      <ModalPortal>{showModal && <Modal content={modalContent} />}</ModalPortal>
+
       <StyledMain>
         <StyledQuiz>
           <img src={quizList[currentIndex].src} alt="quiz image" />
           <StyledAnswerList>
             {quizList[currentIndex].answerList.map((answer: string) => (
-              <StyledAnswer>{answer}</StyledAnswer>
+              <StyledAnswer key={answer} onClick={checkAnswer}>
+                {answer}
+              </StyledAnswer>
             ))}
           </StyledAnswerList>
         </StyledQuiz>
