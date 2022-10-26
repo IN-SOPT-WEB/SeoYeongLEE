@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Modal from "../components/Modal";
 import ModalPortal from "../components/ModalPortal";
@@ -10,24 +10,37 @@ function MainPage() {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
-  useEffect(() => {
-    console.log(showModal);
-  }, [showModal]);
-
   const checkAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
+    let timer = setTimeout(() => setShowModal(false), 500);
+
     if (e.currentTarget.innerText === quizList[currentIndex].answer) {
-      showNextQuiz();
-      setModalContent("맞췄어요!!");
       setScore((prev) => prev + 1);
+      if (currentIndex === quizList.length - 1) {
+        finishQuiz(timer);
+      } else {
+        showNextQuiz();
+        setModalContent("맞췄어요!!");
+      }
     } else {
       setModalContent("아니에요..😣");
     }
     setShowModal(true);
-    setTimeout(() => setShowModal(false), 1000);
   };
 
   const showNextQuiz = () => {
     setCurrentIndex((prev) => prev + 1);
+  };
+
+  const finishQuiz = (timer: ReturnType<typeof setTimeout>) => {
+    setModalContent("퀴즈 끝👋");
+    clearTimeout(timer);
+  };
+
+  const resetQuiz = () => {
+    setCurrentIndex(0);
+    setScore(0);
+    setModalContent("");
+    setShowModal(false);
   };
 
   return (
@@ -51,6 +64,10 @@ function MainPage() {
           </StyledAnswerList>
         </StyledQuiz>
       </StyledMain>
+
+      {modalContent === "퀴즈 끝👋" && (
+        <StyledReplayButton onClick={resetQuiz}>다시하기</StyledReplayButton>
+      )}
     </StyledRoot>
   );
 }
@@ -67,7 +84,7 @@ const StyledHeader = styled.header`
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 1px solid #232323;
+  border-bottom: 2px solid #232323;
   & > h1 {
     font-size: 24px;
     font-weight: 700;
@@ -102,7 +119,20 @@ const StyledAnswer = styled.li`
   border-radius: 10px;
   font-size: 18px;
   font-weight: 700;
+  cursor: pointer;
   &:not(:last-child) {
     margin-right: 7px;
   }
+`;
+const StyledReplayButton = styled.button`
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  border: none;
+  background-color: #232323;
+  padding: 10px 7px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  z-index: 9;
 `;
