@@ -17,20 +17,30 @@ function MainPage() {
       setStatus(false);
     }, 500);
 
-    if (e.currentTarget.innerText === quizList[currentIndex].answer) {
-      setScore((prev) => prev + 1);
-      if (currentIndex === quizList.length - 1) {
-        finishQuiz(timer);
-      } else {
-        showNextQuiz();
-        setModalContent("맞췄어요!!");
-        setStatus(true);
-      }
-    } else {
-      setModalContent("아니에요..😣");
-      setStatus(false);
-    }
+    e.currentTarget.innerText === quizList[currentIndex].answer
+      ? currentIndex === quizList.length - 1
+        ? handleLastQuiz(timer)
+        : handleCorrectAnswer()
+      : handleWrongAnswer();
+
     setShowModal(true);
+  };
+
+  const handleLastQuiz = (timer: ReturnType<typeof setTimeout>) => {
+    setScore((prev) => prev + 1);
+    finishQuiz(timer);
+  };
+
+  const handleCorrectAnswer = () => {
+    setScore((prev) => prev + 1);
+    showNextQuiz();
+    setModalContent("맞췄어요!!");
+    setStatus(true);
+  };
+
+  const handleWrongAnswer = () => {
+    setModalContent("아니에요..😣");
+    setStatus(false);
   };
 
   const showNextQuiz = () => {
