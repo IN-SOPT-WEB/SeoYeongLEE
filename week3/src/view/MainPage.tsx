@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Modal from "../components/Modal";
 import ModalPortal from "../components/ModalPortal";
 import { quizList } from "../constants/quizList";
@@ -95,10 +95,11 @@ const StyledRoot = styled.div`
   flex-direction: column;
 `;
 const StyledHeader = styled.header<{ isCorrect: boolean }>`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  height: 70px;
   margin-bottom: 20px;
   border-bottom: 2px solid #232323;
   & > h1 {
@@ -107,9 +108,13 @@ const StyledHeader = styled.header<{ isCorrect: boolean }>`
   }
 
   & > p {
+    position: absolute;
+    bottom: 0;
     animation: ${({ isCorrect }) => isCorrect && "0.7s ease scale"};
+    color: ${({ isCorrect }) => isCorrect && "#fff"};
     font-size: 20px;
     font-weight: 500;
+    z-index: 9;
   }
   @keyframes scale {
     0% {
