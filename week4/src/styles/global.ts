@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     max-width: 100vw;
     margin: 0 auto;
+    background: linear-gradient(to right, #fff, #232323);
   }
   
   * {
