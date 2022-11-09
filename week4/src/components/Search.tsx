@@ -1,5 +1,4 @@
 import Input from "./Input";
-import Profile from "./Profile";
 
 function Search() {
   return <>

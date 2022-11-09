@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import Input from "./Input";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,6 +18,7 @@ const initialInfo = {
   name: "",
 };
 function Profile() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { username } = location.state;
   const [info, setInfo] = useState<Info>(initialInfo);
@@ -33,6 +34,10 @@ function Profile() {
     window.location.href = `https://github.com/${username}`;
   }
 
+  const goBack = () => {
+    navigate(-1);
+  }
+
   const { avatar_url, followers, following, public_repos, name } = info;
 
   useEffect(() => {
@@ -44,7 +49,7 @@ function Profile() {
       <Input />
       <Root>
         <ProfileWrapper>
-          <Close>x</Close>
+          <Close onClick={goBack}>x</Close>
           <img src={avatar_url} alt="프로필" placeholder="blur" />
           <h1>{name}</h1>
           <h2>{username}</h2>
