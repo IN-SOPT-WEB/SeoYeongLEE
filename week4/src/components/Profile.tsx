@@ -27,7 +27,6 @@ function Profile() {
       `https://api.github.com/users/${username}`
     );
     setInfo(data);
-    console.log(data);
   };
 
   const redirectUrl = () => {
@@ -46,7 +45,7 @@ function Profile() {
 
   return (
     <>
-      <Input />
+      {/* <Input/> */}
       <Root>
         <ProfileWrapper>
           <Close onClick={goBack}>x</Close>

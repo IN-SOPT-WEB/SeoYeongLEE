@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-function Input() {
+interface InputProps {
+  handleHistory: (input: string) => void;
+}
+function Input(props: InputProps) {
+  const { handleHistory } = props;
   const navigate = useNavigate();
   const [input, setInput] = useState("");
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
+      handleHistory(input);
       navigate(`/search/${input}`, {
         state: {
           username: input,
@@ -20,9 +30,7 @@ function Input() {
       <input
         type="text"
         placeholder="Github Username"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setInput(e.target.value)
-        }
+        onChange={handleInput}
         onKeyUp={handleSearch}
       />
     </Root>
