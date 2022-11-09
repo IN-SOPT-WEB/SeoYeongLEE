@@ -1,15 +1,35 @@
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function Input() {
+  const navigate = useNavigate();
+  const [input, setInput] = useState("");
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      navigate(`/search/${input}`, {
+        state: {
+          username: input,
+        },
+      });
+    }
+  };
   return (
     <Root>
       <h1>GIthub Profile Finder</h1>
-      <input type="text" placeholder="Github Username" />
+      <input
+        type="text"
+        placeholder="Github Username"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setInput(e.target.value)
+        }
+        onKeyUp={handleSearch}
+      />
     </Root>
-  )
+  );
 }
 
-export default Input
+export default Input;
 
 const Root = styled.div`
   display: flex;

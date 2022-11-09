@@ -1,7 +1,10 @@
 import Input from "./Input";
+import Profile from "./Profile";
 
 function Search() {
-  return <Input />;
+  return <>
+    <Input />
+  </>;
 }
 
 export default Search;
