@@ -18,14 +18,21 @@ function Input(props: InputProps) {
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
+      setInput("");
       addHistory(input);
-      navigate(`/search/${input}`, {
-        state: {
-          username: input,
-        },
-      });
+      handleHistory("close");
+      moveToSearch();
     }
   };
+
+  const moveToSearch = () => {
+    navigate(`/search/${input}`, {
+      state: {
+        username: input,
+      },
+    });
+  };
+
   return (
     <Root>
       <h1>GIthub Profile Finder</h1>
@@ -33,6 +40,7 @@ function Input(props: InputProps) {
         <input
           id="active"
           type="text"
+          value={input}
           placeholder="Github Username"
           onChange={handleInput}
           onKeyUp={handleSearch}

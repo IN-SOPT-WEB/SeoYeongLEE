@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useLocation,useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { getProfile } from "../lib/api";
+import { GITHUB_URL } from "../lib/constants";
 interface Info {
   avatar_url: string;
   followers: number;
@@ -21,32 +22,31 @@ function Profile() {
   const location = useLocation();
   const { username } = location.state;
   const [info, setInfo] = useState<Info>(initialInfo);
-  const getProfile = async () => {
-    const { data } = await axios.get(
-      `https://api.github.com/users/${username}`
-    );
+
+  const fetchProfile = async () => {
+    const { data } = await getProfile(username);
     setInfo(data);
   };
 
   const redirectUrl = () => {
-    window.location.href = `https://github.com/${username}`;
-  }
+    window.location.href = `${GITHUB_URL}/${username}`;
+  };
 
-  const goBack = () => {
+  const moveBack = () => {
     navigate(-1);
-  }
+  };
 
   const { avatar_url, followers, following, public_repos, name } = info;
 
   useEffect(() => {
-    getProfile();
+    fetchProfile();
   }, [username]);
 
   return (
     <>
       <Root>
         <ProfileWrapper>
-          <Close onClick={goBack}>x</Close>
+          <Close onClick={moveBack}>x</Close>
           <img src={avatar_url} alt="프로필" placeholder="blur" />
           <h1>{name}</h1>
           <h2>{username}</h2>
@@ -105,12 +105,12 @@ const ProfileWrapper = styled.div`
     font-size: 18px;
     padding: 10px 0 20px 0;
   }
-  & > button{
-    padding:7px;
-    border:none;
+  & > button {
+    padding: 7px;
+    border: none;
     border-radius: 15px;
     margin-bottom: 20px;
-    cursor:pointer;
+    cursor: pointer;
   }
 `;
 
@@ -119,7 +119,7 @@ const Close = styled.span`
   top: 10px;
   right: 20px;
   font-size: 20px;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const Info = styled.div`
