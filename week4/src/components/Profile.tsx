@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProfile } from "../lib/api";
 import { GITHUB_URL } from "../lib/constants";
+import { Spinner } from "./Spinner";
 interface Info {
   avatar_url: string;
   followers: number;
@@ -22,10 +23,15 @@ function Profile() {
   const location = useLocation();
   const { username } = location.state;
   const [info, setInfo] = useState<Info>(initialInfo);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchProfile = async () => {
+    setIsLoading(true);
     const { data } = await getProfile(username);
     setInfo(data);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   };
 
   const redirectUrl = () => {
@@ -42,32 +48,32 @@ function Profile() {
     fetchProfile();
   }, [username]);
 
-  return (
-    <>
-      <Root>
-        <ProfileWrapper>
-          <Close onClick={moveBack}>x</Close>
-          <img src={avatar_url} alt="프로필" placeholder="blur" />
-          <h1>{name}</h1>
-          <h2>{username}</h2>
-          <button onClick={redirectUrl}>View {username}</button>
-          <Info>
-            <div>
-              Followers
-              <span>{followers}</span>
-            </div>
-            <div>
-              Following
-              <span>{following}</span>
-            </div>
-            <div>
-              Repos
-              <span>{public_repos}</span>
-            </div>
-          </Info>
-        </ProfileWrapper>
-      </Root>
-    </>
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <Root>
+      <ProfileWrapper>
+        <Close onClick={moveBack}>x</Close>
+        <img src={avatar_url} alt="프로필" placeholder="blur" />
+        <h1>{name}</h1>
+        <h2>{username}</h2>
+        <button onClick={redirectUrl}>View {username}</button>
+        <Info>
+          <div>
+            Followers
+            <span>{followers}</span>
+          </div>
+          <div>
+            Following
+            <span>{following}</span>
+          </div>
+          <div>
+            Repos
+            <span>{public_repos}</span>
+          </div>
+        </Info>
+      </ProfileWrapper>
+    </Root>
   );
 }
 
