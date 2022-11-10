@@ -19,11 +19,11 @@ function History(props: HistoryProps) {
   };
 
   return (
-    <Root>
+    <Root id="active">
       {history.map((value, idx) => (
         <Item key={value}>
           <span onClick={() => handleSearch(value)}>{value}</span>
-          <Close onClick={() => deleteHistory(idx)}>x</Close>
+          <Close id="active" onClick={() => deleteHistory(idx)}>x</Close>
         </Item>
       ))}
     </Root>

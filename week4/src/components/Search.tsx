@@ -22,14 +22,19 @@ function Search() {
     setHistory((prev) => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
   };
   return (
-    <>
+    <div
+      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+        const { id } = e.target as HTMLInputElement;
+        handleHistory(id === "active" ? "open" : "close");
+      }}
+    >
       <Input addHistory={addHistory} handleHistory={handleHistory}>
         {showHistory && (
           <History history={history} deleteHistory={deleteHistory} />
         )}
       </Input>
       {location.state && <Profile />}
-    </>
+    </div>
   );
 }
 

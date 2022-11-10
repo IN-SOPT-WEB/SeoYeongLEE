@@ -31,11 +31,12 @@ function Input(props: InputProps) {
       <h1>GIthub Profile Finder</h1>
       <InputWrapper>
         <input
+          id="active"
           type="text"
           placeholder="Github Username"
           onChange={handleInput}
           onKeyUp={handleSearch}
-          onFocus={() => handleHistory("open")}
+          onMouseDown={() => handleHistory("open")}
         />
         {children}
       </InputWrapper>
