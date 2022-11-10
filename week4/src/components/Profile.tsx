@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useLocation,useNavigate } from "react-router-dom";
-import Input from "./Input";
 import axios from "axios";
 import { useEffect, useState } from "react";
 interface Info {
@@ -41,11 +40,10 @@ function Profile() {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [username]);
 
   return (
     <>
-      {/* <Input/> */}
       <Root>
         <ProfileWrapper>
           <Close onClick={goBack}>x</Close>
